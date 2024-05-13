@@ -6,10 +6,10 @@
 	public void CounterStartsAtZero()
 	{
 		// Arrange
-		var cut = Render(@<Counter/>);
+		var cut = Render(@<MainLayout/>);
 
 		// Assert that content of the paragraph shows counter at zero
-        cut.Find("p").MarkupMatches(@<p>Current count: 0</p>);
+		cut.Find("p").MarkupMatches(@<p>Current count: 0</p>);
 	}
     [Fact]
 	public void ClickingButtonIncrementsCounter()
@@ -21,6 +21,6 @@
 		cut.Find("button").Click();
 
 		// Assert that the counter was incremented
-        cut.Find("p").MarkupMatches(@<p>Current count: 1</p>);
+		cut.Find("p").MarkupMatches(@<p>Current count: 1</p>);
 	}
 }

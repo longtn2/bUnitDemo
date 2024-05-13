@@ -1,0 +1,26 @@
+@inherits TestContext
+@code {
+    [Fact]
+    public void ToDoStartWithZeroTest()
+    {
+        // Act 
+        var cut = Render(@<BlazorSample.Pages.Todo/>);
+        // Assert
+        var element = cut.Find("h1");
+        element.MarkupMatches($"<h1>Todo (0)</h1>");
+    }
+    [Fact]
+    public void AddOneItemToDoTest()
+    {
+        //Act
+        var todoText = "ToDo_Mock_Data";
+        var cut = Render(@<BlazorSample.Pages.Todo/>);
+        cut.Find("input").Change(todoText);
+        cut.Find("button").Click();
+
+        //Assert Todo have 1 Element not checked
+        cut.Find("h1").MarkupMatches($"<h1>Todo (1)</h1>");
+        var data = cut.Find($"input[value={todoText}]").GetAttribute("value");
+        data.MarkupMatches($"{todoText}") ;
+    }
+}
