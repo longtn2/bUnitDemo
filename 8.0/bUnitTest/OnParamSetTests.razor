@@ -1,0 +1,15 @@
+@inherits TestContext
+@code {
+    [Fact]
+    public void OnParamSetCorrectly()
+    {
+        // Act
+        var date = DateTime.Parse("12/05/2024");    
+        var cut = Render(@<BlazorSample.Pages.OnParamsSet
+                                    StartDate = "date"
+                                    />);
+        // Assert
+        var element = cut.Find("p:last-child");
+        element.MarkupMatches($"<p>The start date in the URL was used (StartDate: {date}).</p>");
+    }
+}
