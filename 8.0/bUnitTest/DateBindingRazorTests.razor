@@ -1,0 +1,30 @@
+@inherits TestContext
+
+@code {
+    [Fact]
+    public void InitialDateBinding()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        var cut = ctx.RenderComponent<BlazorSample.Pages.DateBinding>();
+
+        // Act & Assert
+        var inputValue = cut.Find("input").GetAttribute("value");
+        Assert.Contains("2020-01-01", inputValue);
+    }
+
+    [Fact]
+    public void ChangeDateBinding()
+    {
+        // Arrange
+        using var ctx = new TestContext();
+        var cut = ctx.RenderComponent<BlazorSample.Pages.DateBinding>();
+
+        // Act
+        cut.Find("input").Change("2022-12-31");
+
+        // Assert
+        var inputValue = cut.Find("input").GetAttribute("value");
+        Assert.Contains("2022-12-31", inputValue);
+    }
+}

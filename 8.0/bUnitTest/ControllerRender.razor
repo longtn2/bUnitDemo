@@ -1,0 +1,23 @@
+@inherits TestContext
+@code
+{
+  [Fact]
+  public void HelloWorldComponentRendersCorrectly()
+  {
+    var cut = Render(@<BlazorSample.Pages.ControlRender/>);
+ 
+    // Assert
+        cut.Find("p").MarkupMatches(@<p>Current count: 0</p>);
+  }
+  [Fact]
+    public void ClickingButtonIncrementsControlrender(){
+       // Arrange
+		var cut = Render(@<BlazorSample.Pages.ControlRender/>);
+
+		// Act - click button to increment counter
+		cut.Find("button").Click();
+
+		// Assert that the counter was incremented
+		cut.Find("p").MarkupMatches(@<p>Current count: 1</p>);
+    }
+}

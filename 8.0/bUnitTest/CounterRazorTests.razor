@@ -6,7 +6,7 @@
 	public void CounterStartsAtZero()
 	{
 		// Arrange
-		var cut = Render(@<MainLayout/>);
+		var cut = Render(@<Counter />);
 
 		// Assert that content of the paragraph shows counter at zero
 		cut.Find("p").MarkupMatches(@<p>Current count: 0</p>);
