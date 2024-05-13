@@ -1,13 +1,12 @@
-using BlazorSample.Services;
 using BlazorSample;
-using BlazorSample.Shared;
+using BlazorSample.Services;
 
 namespace bUnitTest
 {
-    public class ServiceTest : TestContext
+    public class ServiceRazorTests : TestContext
     {
         [Fact]
-        public void disposableService()
+        public void DisposableService()
         {
             using var ctx = new TestContext();
             var disposableService =  ctx.Services.AddTransient<TransientDisposableService>();

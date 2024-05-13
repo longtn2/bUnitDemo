@@ -1,0 +1,16 @@
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void EventHandlerTestCorrectly()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.EvenHandler1/>)
+        // Act
+        cut.Find("button").Click();
+        // Assert
+        var updatedText = cut.Find("h2");
+        updatedText.MarkupMatches($"<h2>New heading ({DateTime.Now})</h2>");
+    }
+}

@@ -1,30 +1,52 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
-    public void InitialDateBinding()
+    public void InitialDateBindingTest()
     {
         // Arrange
-        using var ctx = new TestContext();
-        var cut = ctx.RenderComponent<BlazorSample.Pages.DateBinding>();
-
-        // Act & Assert
+        var cut = Render(@<BlazorSample.Pages.DateBinding/>);
+        // Act 
         var inputValue = cut.Find("input").GetAttribute("value");
+        // Assert
         Assert.Contains("2020-01-01", inputValue);
     }
 
     [Fact]
-    public void ChangeDateBinding()
+    public void ChangeDateBindingTest()
     {
         // Arrange
-        using var ctx = new TestContext();
-        var cut = ctx.RenderComponent<BlazorSample.Pages.DateBinding>();
-
+        var cut = Render(@<BlazorSample.Pages.DateBinding/>);
         // Act
         cut.Find("input").Change("2022-12-31");
-
-        // Assert
         var inputValue = cut.Find("input").GetAttribute("value");
+        // Assert
         Assert.Contains("2022-12-31", inputValue);
+    }
+
+    [Fact]
+    public void DateBindingCorrectlyTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.DateBinding/>);
+        //Act
+        var date = DateTime.Today;
+        cut.Find("input").Change(date.ToString("yyyy-MM-dd"));
+        //Assert
+        var data = cut.Find("p:last-child");
+        data.MarkupMatches($"<p><code>startDate</code>: {date}</p>");
+    }
+
+    [Fact]
+    public void DateBindingErrorDateTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.DateBinding/>);
+        //Act
+        cut.Find("input").Change("2024-15/57");
+        //Assert
+        var data = cut.Find("input").GetAttribute("value");
+        data.MarkupMatches("2020-01-01");
     }
 }

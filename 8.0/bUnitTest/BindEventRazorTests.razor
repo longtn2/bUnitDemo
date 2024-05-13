@@ -1,26 +1,24 @@
 @inherits TestContext
 
 @code {
+
     [Fact]
-    public void CheckPageTitle()
+    public void PageTitleTest()
     {
         // Arrange
         var cut = Render(@<BlazorSample.Pages.BindEvent />);
-
         // Assert
         cut.Find("h1").MarkupMatches(@<h1>Bind Event Example</h1>);
     }
 
     [Fact]
-    public void InputValueBindsCorrectly()
+    public void InputValueBindsTest()
     {
         // Arrange
         var expectedInputValue = "2";
         var cut = Render(@<BlazorSample.Pages.BindEvent />);
-
         // Act - simulate user input
         cut.Find("input").Input(expectedInputValue);
-
         // Assert
         cut.WaitForState(() => cut.Find("input").GetAttribute("value") == expectedInputValue);
     }

@@ -1,0 +1,15 @@
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void ClickCounterPartialTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.CounterPartialClass/>);
+        // Act
+        cut.Find("button").Click();
+        // Assert
+        cut.Find("p").MarkupMatches("<p role=\"status\">Current count: 1</p>");
+    }
+}

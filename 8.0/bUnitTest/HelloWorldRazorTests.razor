@@ -1,0 +1,13 @@
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void HelloWorldRendersCorrectlyTest()
+    {
+        // Arrange
+        var cut = Render@<BlazorSample.Pages.HelloWorld/>);
+        // Assert
+        cut.MarkupMatches("<h1>Hello World!</h1>");
+    }
+}

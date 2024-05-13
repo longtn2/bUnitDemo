@@ -1,0 +1,16 @@
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void ClickButtonAndMoveToCounterPageTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Navigate/>);
+        // Act
+        var navigationManager = cut.Services.GetRequiredService<NavigationManager>();
+        cut.Find("button").Click();
+        // Assert
+        Assert.Equal("http://localhost/counter", navigationManager.Uri);
+    }
+}

@@ -2,25 +2,27 @@
 
 
 @code {
+
     [Fact]
 	public void CounterStartsAtZero()
 	{
 		// Arrange
-		var cut = Render(@<Counter />);
+		var cut = Render(@<BlazorSample.Pages.Counter/>);
 
 		// Assert that content of the paragraph shows counter at zero
-		cut.Find("p").MarkupMatches(@<p>Current count: 0</p>);
+        cut.Find("p").MarkupMatches(@<p role="status">Current count: 0</p>);
 	}
+
     [Fact]
 	public void ClickingButtonIncrementsCounter()
 	{
 		// Arrange
-		var cut = Render(@<Counter />);
+        var cut = Render(@<BlazorSample.Pages.Counter />);
 
 		// Act - click button to increment counter
 		cut.Find("button").Click();
 
 		// Assert that the counter was incremented
-		cut.Find("p").MarkupMatches(@<p>Current count: 1</p>);
+        cut.Find("p").MarkupMatches(@<p role="status">Current count: 1</p>);
 	}
 }
