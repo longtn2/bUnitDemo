@@ -1,9 +1,11 @@
 @inherits TestContext
+
 @code {
+
     [Fact]
     public void OnParamSetCorrectly()
     {
-        // Act
+        // Arrange & Act
         var date = DateTime.Parse("12/05/2024");    
         var cut = Render(@<BlazorSample.Pages.OnParamsSet
                                     StartDate = "date"

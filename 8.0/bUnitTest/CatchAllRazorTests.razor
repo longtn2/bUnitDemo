@@ -1,0 +1,13 @@
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void ShowContentTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.CatchAll/>);
+        // Assert
+        cut.Find("p").MarkupMatches("<p>Add some URI segments to the route and request the page again.</p>");
+    }
+}

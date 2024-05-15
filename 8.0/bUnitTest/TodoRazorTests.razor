@@ -1,0 +1,80 @@
+@using BlazorSample
+@inherits TestContext
+
+@code {
+
+    [Fact]
+    public void RendersTodoListInitWithEmptyTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Todo />);
+        // Act
+        var todoList = cut.Find("ul");
+        // Assert
+        Assert.Empty(todoList.Children);
+    }
+
+    [Fact]
+    public void ToDoStartWithZeroTest()
+    {
+        // Arrange 
+        var cut = Render(@<BlazorSample.Pages.Todo/>);
+        // Assert
+        var element = cut.Find("h1");
+        element.MarkupMatches($"<h1>Todo (0)</h1>");
+    }
+
+    [Fact]
+    public void AddOneItemToDoTest()
+    {
+        // Arrange 
+        var todoText = "ToDo_Mock_Data";
+        var cut = Render(@<BlazorSample.Pages.Todo/>);
+        // Act
+        cut.Find("input").Change(todoText);
+        cut.Find("button").Click();
+        // Assert Todo have 1 Element not checked
+        cut.Find("h1").MarkupMatches($"<h1>Todo (1)</h1>");
+        var data = cut.Find($"input[value={todoText}]").GetAttribute("value");
+        data.MarkupMatches($"{todoText}");
+    }
+
+    [Fact]
+    public void ClickButtonAddTodoToListTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Todo />);
+        // Act 
+        cut.Find("input[placeholder='Something todo']").Change("Do homework");
+        cut.Find("button").Click();
+        // Assert 
+        cut.Find("li").MarkupMatches(@<li><input type="checkbox"/><input value="Do homework"/></li>);
+    }
+
+    [Fact]
+    public void UpdatesTodoCountAfterAddingTodoTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Todo />);
+        var newTodoInput = cut.Find("input[placeholder='Something todo']");
+        newTodoInput.Change("Buy milk");
+        // Act
+        cut.Find("button").Click();
+        // Assert
+        cut.Find("h1").MarkupMatches(@<h1>Todo (1)</h1>);
+    }
+
+    [Fact]
+    public void DoesNotAddTodoWhenInputIsEmptyTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Todo />);
+        var newTodoInput = cut.Find("input[placeholder='Something todo']");
+        newTodoInput.Change("");
+        cut.Find("button").Click();
+        // Act
+        var todoList = cut.Find("ul");
+        // Assert
+        Assert.Empty(todoList.Children);
+    }
+}

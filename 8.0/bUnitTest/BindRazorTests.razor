@@ -1,0 +1,26 @@
+@inherits TestContext
+
+@code {
+    
+    [Fact]
+    public void BindInputStartsWithEmptyTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Bind />);
+        // Assert
+        cut.Find("input").MarkupMatches(@<input/>);
+    }
+
+    [Fact]
+    public void PressEnterDisplayTest()
+    {
+        // Arrange
+        var cut = Render(@<BlazorSample.Pages.Bind />);
+        var input = cut.Find("input");
+        var output = cut.Find("li");
+        // Act
+        input.Change("Hello");
+        // Assert
+        output.MarkupMatches("<li><code>inputValue</code>: Hello</li>");
+    }
+}
